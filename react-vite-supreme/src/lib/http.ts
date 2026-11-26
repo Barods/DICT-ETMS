@@ -1,4 +1,5 @@
 import axios from "axios"
+import { getAppUrl } from "@/lib/base"
 
 const API_URL = import.meta.env.VITE_API_URL ?? (import.meta.env.DEV ? "/api/v1" : "http://localhost:8000/api/v1")
 const sessionKey = "etms-session"
@@ -22,8 +23,8 @@ export const apiClient = axios.create({
 
 function redirectToLogin() {
   localStorage.removeItem(sessionKey)
-  if (typeof window === "undefined" || window.location.pathname === "/login") return
-  window.history.pushState({}, "", "/login")
+  if (typeof window === "undefined" || window.location.pathname.endsWith("/login")) return
+  window.history.pushState({}, "", getAppUrl("/login"))
   window.dispatchEvent(new PopStateEvent("popstate"))
 }
 

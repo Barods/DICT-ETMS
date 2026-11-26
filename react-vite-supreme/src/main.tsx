@@ -19,14 +19,15 @@ import UsersPage from "@/app/users/page"
 import TemplatesPage from "@/app/templates/page"
 import LinksPage from "@/app/links/page"
 import "@/app/globals.css"
+import { getAppPathname } from "@/lib/base"
 
 function RouterView() {
   const { currentUser } = useStore()
-  const [pathname, setPathname] = useState(() => window.location.pathname)
+  const [pathname, setPathname] = useState(() => getAppPathname())
   const [authenticated, setAuthenticated] = useState(() => hasAuthSession())
   useEffect(() => {
     const update = () => {
-      setPathname(window.location.pathname)
+      setPathname(getAppPathname())
       setAuthenticated(hasAuthSession())
     }
     window.addEventListener("popstate", update)

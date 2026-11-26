@@ -3,6 +3,7 @@ import { FileCheck2, ShieldCheck, UserRound, Wifi } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { apiClient, getApiErrorData, hasApiResponse } from "@/lib/http"
+import { getAppUrl } from "@/lib/base"
 
 type Mode = "login" | "signup" | "forgot"
 
@@ -22,7 +23,7 @@ export function hasAuthSession() {
 
 export function signOut() {
   localStorage.removeItem(sessionKey)
-  window.history.pushState({}, "", "/login")
+  window.history.pushState({}, "", getAppUrl("/login"))
   window.dispatchEvent(new PopStateEvent("popstate"))
 }
 
@@ -78,7 +79,7 @@ export function AuthPage({ initialMode = "login" }: { initialMode?: Mode }) {
           refreshToken: data.refresh,
         }))
 
-        window.history.pushState({}, "", "/")
+        window.history.pushState({}, "", getAppUrl("/"))
         window.dispatchEvent(new PopStateEvent("popstate"))
         return
       } catch (requestError) {
@@ -142,7 +143,7 @@ export function AuthPage({ initialMode = "login" }: { initialMode?: Mode }) {
         refreshToken: loginData.refresh,
       }))
 
-      window.history.pushState({}, "", "/")
+      window.history.pushState({}, "", getAppUrl("/"))
       window.dispatchEvent(new PopStateEvent("popstate"))
     } catch {
       setError("Unable to connect to the server. Your account was not signed in.")

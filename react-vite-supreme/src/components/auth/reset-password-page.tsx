@@ -3,6 +3,7 @@ import { ArrowLeft, ShieldCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { apiClient, getApiErrorData, hasApiResponse } from "@/lib/http"
+import { getAppUrl } from "@/lib/base"
 
 export function ResetPasswordPage({ uid, token }: { uid: string; token: string }) {
   const [password, setPassword] = useState("")
@@ -51,7 +52,7 @@ export function ResetPasswordPage({ uid, token }: { uid: string; token: string }
     <div className="pointer-events-none absolute -right-24 bottom-8 size-80 rounded-full bg-[#d5e1fa] opacity-80" />
     <section className="relative w-full max-w-sm rounded-xl bg-white px-7 py-8 shadow-[0_18px_45px_rgba(62,79,140,0.12)] sm:px-9 sm:py-9">
       <div className="mx-auto w-full max-w-[290px]">
-        <div className="flex justify-center"><img src="/images/etms-logo.png" alt="eTMS logo" className="h-9 w-24 object-contain" /></div>
+        <div className="flex justify-center"><img src={`${import.meta.env.BASE_URL}images/etms-logo.png`} alt="eTMS logo" className="h-9 w-24 object-contain" /></div>
         <div className="mt-4 flex justify-center text-[#2d67e8]"><ShieldCheck className="size-8" /></div>
         <h1 className="mt-3 text-center text-xl font-bold tracking-tight text-[#263653]">Set a new password</h1>
         <p className="mt-1 text-center text-[10px] text-[#78849c]">Choose a new password for your account</p>
@@ -64,7 +65,7 @@ export function ResetPasswordPage({ uid, token }: { uid: string; token: string }
           <Button type="submit" className="mt-1 h-8 rounded-md bg-[#2d67e8] text-[10px] shadow-none hover:bg-[#2459d2]">Reset password</Button>
         </form>
 
-        <button type="button" onClick={() => { window.history.pushState({}, "", "/login"); window.dispatchEvent(new PopStateEvent("popstate")) }} className="mx-auto mt-7 flex items-center gap-1 text-[9px] font-semibold text-[#2d67e8] hover:underline"><ArrowLeft className="size-3" /> Back to sign in</button>
+        <button type="button" onClick={() => { window.history.pushState({}, "", getAppUrl("/login")); window.dispatchEvent(new PopStateEvent("popstate")) }} className="mx-auto mt-7 flex items-center gap-1 text-[9px] font-semibold text-[#2d67e8] hover:underline"><ArrowLeft className="size-3" /> Back to sign in</button>
       </div>
     </section>
   </main>
